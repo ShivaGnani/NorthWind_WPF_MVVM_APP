@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NorthWind_WPF_MVVM_APP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        xmlns:controls="clr-namespace:NorthWind_WPF_MVVM_APP.View.UserControls"
+        Title="North Wind App" Height="350" Width="525">
+    <StackPanel Orientation="Vertical">
+        <controls:Login HorizontalAlignment="Center" BorderBrush="#FF1B1B4E" Padding="4 0 4 4" BorderThickness="1"></controls:Login>
+    </StackPanel>
 </Window>
