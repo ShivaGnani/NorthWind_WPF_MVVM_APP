@@ -57,8 +57,12 @@ namespace NorthWind_WPF_MVVM_APP.Model
                 switch (PropertyName)
                 {
                     case "UserName":
-                        if (UserName == null)
+                        if (string.IsNullOrEmpty(UserName))
                             result = "User name should not be empty";
+                        break;
+                    case "Password":
+                        if (string.IsNullOrEmpty(Password))
+                            result = "Please enter password.";
                         break;
                 }
                 return result;

@@ -44,11 +44,21 @@ namespace NorthWind_WPF_MVVM_APP.ViewModel
         {
             model = new MasterModel();
             User = new User();
-            LoginCommand = new RelayCommand(validateUser);
+            LoginCommand = new RelayCommand(validateUser, canValidateUser);
         }
         protected void validateUser(object param)
         {
-            Message = model.validateUser(User);
+            User user = model.validateUser(User);
+            if (user == null)
+                Message = "User doesn't exist.";
+            MainViewModel.Instance.SelectedViewModel = new HomeViewModel(user.UserName);
+        }
+
+        protected bool canValidateUser(object param)
+        {
+            if (string.IsNullOrEmpty(User.UserName) || string.IsNullOrEmpty(User.Password))
+                return false;
+            return true;
         }
     }
 }

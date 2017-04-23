@@ -8,11 +8,20 @@
              xmlns:helper="clr-namespace:NorthWind_WPF_MVVM_APP.Helpers"
              xmlns:vm="clr-namespace:NorthWind_WPF_MVVM_APP.ViewModel"
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{DynamicResource LoginVM}">
+             >
     <UserControl.Resources>
         <vm:LoginViewModel x:Key="LoginVM"/>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="BorderBrush" Value="Red"></Setter>
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    <Grid >
+    <GroupBox Header="Login">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -24,9 +33,10 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Name="UserName" Text="User name:" VerticalAlignment="Center" Margin="3"></TextBlock>
         <TextBlock Grid.Column="0" Grid.Row="1" Name="Password" Text="Password:" VerticalAlignment="Center" Margin="3"></TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="0" Height="20" Width="100" HorizontalAlignment="Left" Text="{Binding User.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <PasswordBox Grid.Column="1" Grid.Row="1" Height="20" Width="100" HorizontalAlignment="Left" helper:PasswordBoxHelper.BindPassword="True" helper:PasswordBoxHelper.BoundPassword="{Binding User.Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
+        <TextBox Grid.Column="1" Grid.Row="0" Height="20" Width="100" HorizontalAlignment="Left" Text="{Binding User.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <PasswordBox Grid.Column="1" Grid.Row="1" Height="20" Width="100" HorizontalAlignment="Left" helper:PasswordBoxHelper.BindPassword="True" helper:PasswordBoxHelper.BoundPassword="{Binding User.Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></PasswordBox>
         <Button Grid.Column="0" Grid.Row="2" Height="25" Width="70" Margin="3" HorizontalAlignment="Center" Content="Login" Command="{Binding LoginCommand}"></Button>
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Message}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Message1}"></TextBlock>
     </Grid>
+    </GroupBox>
 </UserControl>
